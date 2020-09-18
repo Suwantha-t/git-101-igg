@@ -1,7 +1,9 @@
 import React from 'react'
 import ValidationComponent from 'react-native-form-validator'
-import { View, StyleSheet, Text, TextInput, Button, Alert } from 'react-native'
+import { ScrollView, View, StyleSheet, Text, TextInput, Button, Alert, Platform } from 'react-native'
 import axios from 'axios'
+import Camera from './components/Camera'
+
 
 export default class ResumeForm extends ValidationComponent {
     state = {
@@ -9,10 +11,12 @@ export default class ResumeForm extends ValidationComponent {
         nickname: ' ',
         age: '',
         skill: '',
+        avatar: '',
 
     }
     _onSubmit = () => {
         const isValid = this.validate({
+            avatar: { required: true },
             name: { required: true },
             nickname: { required: true },
             age: { required: true, numbers: true },
@@ -21,6 +25,12 @@ export default class ResumeForm extends ValidationComponent {
         });
         if (isValid) {
             const formData = new FormData();
+            const uri = this.state.avatar
+            formData.append('avatar', {
+                uri: Platform.OS === 'android' ? uri : uri.replace('file://', ''),
+                type: 'image/jpg',
+                name: 'avatar.jpg'
+            })
             formData.append('name', this.state.name)
             formData.append('nickname', this.state.nickname)
             formData.append('age', this.state.age)
@@ -43,19 +53,25 @@ export default class ResumeForm extends ValidationComponent {
                     )
                 }).catch((error) => {
                     console.log('api error', error)
+
+                }).finally(() => {
+                    this.setState({ loading: true })
                 })
-                
+
         }
 
     }
     render() {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <View>
                     <Text style={styles.getErrorMessages}>
                         {this.getErrorMessages()}
                     </Text>
+                    {/* camera */}
+                    <Camera onTakePicture={(pictureUri) => { this.setState({ avatar: pictureUri }) }} />
                 </View>
+
                 {/* add Form */}
                 <View>
                     <Text>Full name</Text>
@@ -95,11 +111,11 @@ export default class ResumeForm extends ValidationComponent {
                 </View>
 
                 {/* button */}
-                <View style={{ marginTop: 20 }}>
+                <View style={{ marginTop: 20, marginBottom: 80 }}>
                     <Button title="Create Resume" onPress={this._onSubmit} ></Button>
                 </View>
 
-            </View>
+            </ScrollView>
         )
     }
 

@@ -4,24 +4,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import ResumeForm from './screen/ResumeForm';
 import ResumeDetail from './screen/ResumeDetail';
-
-// function DetailScreen(props) {
-//   return (
-//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//       <Text>Detail Screen</Text>
-//       {/* <Button title="Go to Home Screen" onPress={() => props.navigation.push('Home')}></Button> */}
-//     </View>
-//   );
-// }
+import ResumeList from './screen/ResumeList'
 
 const Stack = createStackNavigator();
+
 function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* add */}
-        <Stack.Screen name="ResumeForm" options={{title: 'Resume Form'}} component={ResumeForm} />
-        <Stack.Screen name="ResumeDetail" options={{title: 'Resume Detail'}} component={ResumeDetail} />
+        <Stack.Screen name="ResumeList" options={{ title: 'Resume list' }} component={ResumeList} />
+        <Stack.Screen name="ResumeForm" options={{ title: 'Resume form' }} component={ResumeForm} />
+        <Stack.Screen name="ResumeDetail" options={{ title: 'Resume Detail' }} component={ResumeDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
