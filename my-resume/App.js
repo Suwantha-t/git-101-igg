@@ -2,7 +2,8 @@ import * as React from 'react';
 import { View, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import ResumeForm from './screen/ResumeForm'
+import ResumeForm from './screen/ResumeForm';
+import ResumeDetail from './screen/ResumeDetail';
 
 // function DetailScreen(props) {
 //   return (
@@ -20,7 +21,7 @@ function App() {
       <Stack.Navigator>
         {/* add */}
         <Stack.Screen name="ResumeForm" options={{title: 'Resume Form'}} component={ResumeForm} />
-        {/* <Stack.Screen name="Detail" options={{title: 'Detail page'}} component={DetailScreen} /> */}
+        <Stack.Screen name="ResumeDetail" options={{title: 'Resume Detail'}} component={ResumeDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

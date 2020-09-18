@@ -37,7 +37,7 @@ export default class ResumeForm extends ValidationComponent {
                         [{
                             test: 'OK',
                             onPress: () => {
-                                this.prop.navigation.push('ResumeDetail', { id: response.data.id })
+                                this.props.navigation.push('ResumeDetail', { id: response.data.id })
                             }
                         }]
                     )
